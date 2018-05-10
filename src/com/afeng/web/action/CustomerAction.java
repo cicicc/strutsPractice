@@ -3,6 +3,7 @@ package com.afeng.web.action;
 import com.afeng.domain.Customer;
 import com.afeng.service.CustomerService;
 import com.afeng.service.impl.CustomerServiceImpl;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ModelDriven;
 import org.apache.struts2.ServletActionContext;
 
@@ -16,11 +17,24 @@ public class CustomerAction  implements ModelDriven<Customer> {
      * @return 返回至list列表
      * @throws Exception
      */
-    public String findAll() throws Exception {
+    /*public String findAll() throws Exception {
         List<Customer> customerList = customerService.findAll();
         ServletActionContext.getRequest().setAttribute("list",customerList);
         return "list";
+    }*/
+
+    /**
+     * 将数据改为放在值栈中 而不是放在request域中
+     * @return 返回至list页面
+     * @throws Exception
+     */
+    public String findAll() throws Exception {
+        List<Customer> customerList = customerService.findAll();
+//        ServletActionContext.getRequest().setAttribute("list",customerList);
+        ActionContext.getContext().getValueStack().set("list",customerList);
+        return "list";
     }
+
 
     /**
      * 将用户在页面上输入的新Customer信息采用模型驱动的方式保存下来 并调用service层将数据保存下来

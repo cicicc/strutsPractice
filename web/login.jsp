@@ -18,10 +18,18 @@
             FONT-SIZE: 12px; COLOR: #ffffff; FONT-FAMILY: 宋体
         }
     </STYLE>
+    <script type="text/javascript">
+        <%--当页面加载的时候 如果当前页面并不占据着整个页面的话 那么就将它的页面设置为占据整个页面--%>
+        window.onload(function () {
+            if (window.parent != window) {
+                window.parent.location.href="${pageContext.request.contextPath}/login.jsp";
+            }
+        });
+    </script>
 
     <META content="MSHTML 6.00.6000.16809" name=GENERATOR></HEAD>
 <BODY>
-<FORM id=form1 name=form1 onsubmit="javascript:return WebForm_OnSubmit();" method=post>
+<FORM id=form1 name=form1 action="${pageContext.request.contextPath}/user_login.action" onsubmit="javascript:return WebForm_OnSubmit();" method=post>
 
     <DIV id=UpdatePanel1>
         <DIV id=div1
@@ -51,14 +59,14 @@
                                         <TR>
                                             <TD style="HEIGHT: 28px" width=80>登 录 名：</TD>
                                             <TD style="HEIGHT: 28px" width=150><INPUT id=txtName
-                                                                                      style="WIDTH: 130px" name=txtName></TD>
+                                                                                      style="WIDTH: 130px" name="username"></TD>
                                             <TD style="HEIGHT: 28px" width=370><SPAN
                                                     id=RequiredFieldValidator3
                                                     style="FONT-WEIGHT: bold; VISIBILITY: hidden; COLOR: white">请输入登录名</SPAN></TD></TR>
                                         <TR>
                                             <TD style="HEIGHT: 28px">登录密码：</TD>
                                             <TD style="HEIGHT: 28px"><INPUT id=txtPwd style="WIDTH: 130px"
-                                                                            type=password name=txtPwd></TD>
+                                                                            type=password name=password></TD>
                                             <TD style="HEIGHT: 28px"><SPAN id=RequiredFieldValidator4
                                                                            style="FONT-WEIGHT: bold; VISIBILITY: hidden; COLOR: white">请输入密码</SPAN></TD></TR>
                                         <TR>

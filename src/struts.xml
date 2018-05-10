@@ -10,6 +10,7 @@
     <!--设置访问路径是否必须要写上action-->
     <constant name="struts.action.extension" value="action,,"/>
 
+
     <!--测试开发环境是否搭建完好-->
     <package name="hello" namespace="/" extends="struts-default">
         <!--name属性是表示在页面输入的地址 而method则是书写的Action类中返回方法的类-->
@@ -47,10 +48,36 @@
             <result name="success">/testJsp/demo1.jsp</result>
         </action>
     </package>
+    <!--练习ognl的代码书写-->
+    <package name="ognlPractice" extends="struts-default" namespace="/">
+        <action name="ognlPage" class="com.afeng.practice.ognl.ToOgnlPage" method="execute">
+            <result name="page">/testJsp/ognlUse.jsp</result>
+        </action>
+    </package>
+    <!--配置拦截器对应的登录页面-->
+<package name="login" namespace="/" extends="struts-default">
+    <!--定义拦截器-->
+    <interceptors>
+        <interceptor name="visitInterceptor" class="com.afeng.web.interceptor.VisitInterceptor"/>
+    <!--定义拦截器栈-->
+        <interceptor-stack name="myStack" >
+            <interceptor-ref name="visitInterceptor">
+                <param name="excludeMethods">login</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"/>
+        </interceptor-stack>
+    </interceptors>
+    <!-- 指定包中的默认拦截器栈 -->
+    <default-interceptor-ref name="myStack"></default-interceptor-ref>
+    <global-results>
+        <result name="login">login.jsp</result>
+    </global-results>
+    <action name="user_*" class="com.afeng.web.action.UserAction" method="{1}">
+        <result name="success">/index.jsp</result>
+        <result name="login">/login.jsp</result>
+    </action>
+</package>
 </struts>
-
-
-
 
 
 
