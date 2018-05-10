@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+    <!--设置默认编码集为utf-8 可以解决post乱码问题 默认值就是这个-->
+    <constant name="struts.i18n.encoding" value="UTF-8"/>
+    <!--设置默认为开发者模式-->
+    <constant name="struts.devMode" value="true"/>
+    <!--设置访问路径是否必须要写上action-->
+    <constant name="struts.action.extension" value="action,,"/>
+
+    <!--测试开发环境是否搭建完好-->
+    <package name="hello" namespace="/" extends="struts-default">
+        <!--name属性是表示在页面输入的地址 而method则是书写的Action类中返回方法的类-->
+        <action name="HelloAction" method="sayHello" class="com.afeng.hello.HelloAction">
+            <result name="success">/testJsp/hello.jsp</result>
+        </action>
+    </package>
+
+    <!--练习关于通配符访问的代码-->
+    <package name="char" namespace="/" extends="struts-default">
+        <!--name属性是表示在页面输入的地址 而method则是书写的Action类中返回方法的类-->
+        <!--寻找的是userAction路径对应类下的add方法-->
+        <action name="userAction_*" method="{1}" class="com.afeng.practice.action.ExtensiveChar">
+            <result name="success">/testJsp/hello.jsp</result>
+        </action>
+    </package>
+
+    <!--练习crm中客户的操作-->
+    <package name="customer" namespace="/" extends="struts-default">
+        <action name="customer_*" class="com.afeng.web.action.CustomerAction" method="{1}">
+            <result name="list">jsp/customer/list.jsp</result>
+            <result name="addUI">jsp/customer/add.jsp</result>
+            <result name="toList" type="redirect">customer_findAll.action</result>
+        </action>
+    </package>
+    <!--练习ActionContext的操作 在Struts中使用了ActionContext替代了request 两者的请求域相同-->
+    <package name="actionContext" namespace="/" extends="struts-default">
+        <action name="demo1" class="com.afeng.practice.action.TestActionContext" >
+            <result name="success">/testJsp/demo1.jsp</result>
+        </action>
+        <action name="demo2" class="com.afeng.practice.action.TestActionContext" method="printDemo">
+            <result name="success">/testJsp/demo2.jsp</result>
+        </action>
+        <action name="demo3" class="com.afeng.practice.action.TestDriver" method="DriverByVariable">
+            <result name="success">/testJsp/demo1.jsp</result>
+        </action>
+    </package>
+</struts>
+
+
+
+
+
+
+
